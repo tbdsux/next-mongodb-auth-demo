@@ -1,16 +1,28 @@
 "use server";
 
+import { DEFAULT_COOKIE_NAME } from "@/lib/cookies";
 import dbConnect from "@/lib/dbConnect";
 import { hashPassword } from "@/lib/hashing";
+import { generateToken } from "@/lib/jwt";
 import User from "@/models/User";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const schema = z
   .object({
-    fullName: z.string().min(3),
-    email: z.string().email(),
-    password: z.string().min(3),
-    confirmPassword: z.string().min(3),
+    fullName: z.string().min(3, {
+      message: "Full name should atleast be greater than 3 characters.",
+    }),
+    email: z
+      .string()
+      .email({ message: "Email provided is not a valid email!" }),
+    password: z
+      .string()
+      .min(7, { message: "Passwords should be atleast 7 characters length!" }),
+    confirmPassword: z
+      .string()
+      .min(7, { message: "Passwords should be atleast 7 characters length!" }),
   })
   .superRefine(({ password, confirmPassword }, ctx) => {
     if (password !== confirmPassword) {
@@ -18,7 +30,7 @@ const schema = z
     }
   });
 
-async function createAccount(formData: FormData) {
+async function createAccount(prevState: any, formData: FormData) {
   const parsed = schema.safeParse({
     fullName: formData.get("fullName"),
     email: formData.get("email"),
@@ -27,16 +39,28 @@ async function createAccount(formData: FormData) {
   });
 
   if (!parsed.success) {
-    return { message: parsed.error.toString(), success: false };
+    return { fromAction: true, message: parsed.error.issues, success: false };
   }
 
   await dbConnect();
 
-  const hash = await hashPassword(parsed.data.password);
+  // check if the user exists
+  const isUserExists = await User.findOne({ email: parsed.data.email }).exec();
+  if (isUserExists) {
+    return {
+      fromAction: true,
+      success: false,
+      message: "A user with this email already exists.",
+    };
+  }
 
+  const hash = await hashPassword(parsed.data.password);
   const user = await User.create({ ...parsed.data, hash });
 
-  return { message: user, success: true };
+  const token = generateToken({ id: user._id, email: user.email });
+  cookies().set(DEFAULT_COOKIE_NAME, token);
+
+  redirect("/dashboard");
 }
 
 export { createAccount };

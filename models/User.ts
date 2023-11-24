@@ -5,6 +5,7 @@ export interface Users extends mongoose.Document {
   email: string;
   hash: string;
   role: string;
+  verified: boolean;
 }
 
 const UsersSchema = new mongoose.Schema<Users>({
@@ -24,6 +25,10 @@ const UsersSchema = new mongoose.Schema<Users>({
   role: {
     type: String,
     default: "user",
+  },
+  verified: {
+    type: Boolean,
+    default: false,
   },
 });
 

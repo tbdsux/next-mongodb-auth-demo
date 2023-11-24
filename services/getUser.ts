@@ -20,8 +20,14 @@ const getUser = cache(async () => {
   }
 
   const user = await User.findById(data.data.id).exec();
+  console.log(user.email);
   return {
-    user: { fullName: user?.fullName, email: user?.email, role: user?.role },
+    user: {
+      fullName: user.fullName,
+      email: user.email,
+      role: user.role,
+      verified: Boolean(user.verified),
+    },
   };
 });
 

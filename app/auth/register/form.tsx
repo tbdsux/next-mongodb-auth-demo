@@ -1,10 +1,37 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect } from "react";
+import { useFormState } from "react-dom";
+import { toast } from "react-toastify";
 import CreateAccountButton from "./CreateAccountButton";
 import { createAccount } from "./actions";
 
 export default function RegisterForm() {
+  const [state, formAction] = useFormState(createAccount, {
+    fromAction: false,
+    success: false,
+    message: "",
+  });
+
+  useEffect(() => {
+    if (state.fromAction) {
+      if (state.success) return;
+
+      if (Array.isArray(state.message)) {
+        for (const i of state.message) {
+          toast.error(i.message);
+        }
+
+        return;
+      }
+
+      toast.error(state.message);
+    }
+  }, [state]);
+
   return (
-    <form action={createAccount} className="mt-4">
+    <form action={formAction} className="mt-4">
       <div className="flex flex-col my-1">
         <label htmlFor="email" className="text-sm">
           Your full name
