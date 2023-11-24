@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 export interface Users extends mongoose.Document {
   fullName: string;
   email: string;
-  salt: string;
   hash: string;
   role: string;
 }
@@ -15,11 +14,8 @@ const UsersSchema = new mongoose.Schema<Users>({
   },
   email: {
     type: String,
+    unique: true,
     required: [true, "Please set the user's email address."],
-  },
-  salt: {
-    type: String,
-    required: [true, "Please set a hash salt for password security."],
   },
   hash: {
     type: String,
