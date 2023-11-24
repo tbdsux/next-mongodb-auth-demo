@@ -1,3 +1,4 @@
+import Link from "next/link";
 import CreateAccountButton from "./CreateAccountButton";
 import { createAccount } from "./actions";
 
@@ -53,8 +54,11 @@ export default function RegisterForm() {
         />
       </div>
 
-      <div className="flex mt-3">
+      <div className="flex items-center mt-3">
         <CreateAccountButton />
+        <Link href="/auth/login" className="ml-4 text-sm">
+          Already have an account
+        </Link>
       </div>
     </form>
   );

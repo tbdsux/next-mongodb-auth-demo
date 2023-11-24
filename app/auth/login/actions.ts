@@ -10,8 +10,8 @@ import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const schema = z.object({
-  email: z.string().min(1),
-  password: z.string().min(1),
+  email: z.string().min(1, {message: "Email input is currently blank!"}),
+  password: z.string().min(1, {message: "Password input is currently blank!"}),
 });
 
 async function loginAccount(prevState: any, formData: FormData) {
@@ -21,14 +21,18 @@ async function loginAccount(prevState: any, formData: FormData) {
   });
 
   if (!parsed.success) {
-    return { message: parsed.error.issues, success: false };
+    return { fromAction: true, success: false, message: parsed.error.issues };
   }
 
   await dbConnect();
 
   const user = await User.findOne({ email: parsed.data.email }).exec();
   if (!user) {
-    return { success: false, message: "Invalid email or password." };
+    return {
+      fromAction: true,
+      success: false,
+      message: "Invalid email or password.",
+    };
   }
 
   // compare password
@@ -37,7 +41,11 @@ async function loginAccount(prevState: any, formData: FormData) {
     user.hash
   );
   if (!isPasswordSimilar) {
-    return { success: false, message: "Invalid email or password." };
+    return {
+      fromAction: true,
+      success: false,
+      message: "Invalid email or password.",
+    };
   }
 
   const token = generateToken({ id: user._id, email: user.email });
