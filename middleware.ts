@@ -4,8 +4,14 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(request: NextRequest) {
   const authToken = request.cookies.get(DEFAULT_COOKIE_NAME)?.value;
 
+  const urlPathname = request.nextUrl.pathname;
+  const defaultResponse = NextResponse.next();
+
+  // TODO: verify the token in here
+  // if failed to verify, redirect to login
+
   if (!authToken) {
-    if (request.nextUrl.pathname.startsWith("/dashboard")) {
+    if (urlPathname.startsWith("/dashboard")) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
     }
   } else {
@@ -14,8 +20,7 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  const response = NextResponse.next();
-  return response;
+  return defaultResponse;
 }
 
 export const config = {

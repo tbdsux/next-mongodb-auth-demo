@@ -10,16 +10,12 @@ const getUser = cache(async () => {
     return { user: null };
   }
 
-  let { success, message, data } = verifyToken(authToken);
-  if (!success) {
-    return { user: null, message };
+  let validateToken = verifyToken(authToken);
+  if (!validateToken.success) {
+    return { user: null, message: validateToken.message };
   }
 
-  if (typeof data === "string" || !data) {
-    return { user: null };
-  }
-
-  const user = await User.findById(data.data.id).exec();
+  const user = await User.findById(validateToken.data.id).exec();
   console.log(user.email);
   return {
     user: {

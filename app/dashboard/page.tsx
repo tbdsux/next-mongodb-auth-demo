@@ -1,4 +1,5 @@
 import { getUser } from "@/services/getUser";
+import UnverifiedUser from "./UnverifiedUser";
 import { logoutAccount } from "./actions";
 
 export default async function DashboardPage() {
@@ -13,6 +14,8 @@ export default async function DashboardPage() {
       <pre>
         <code>{JSON.stringify(user, null, 4)}</code>
       </pre>
+
+      {!user?.verified ? <UnverifiedUser /> : <></>}
 
       <div className="mt-10">
         <form action={logoutAccount}>
