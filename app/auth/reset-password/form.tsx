@@ -35,7 +35,7 @@ export default function ResetPasswordForm({ fpToken }: { fpToken: string }) {
 
   return state.fromAction && state.success ? (
     <div className="mt-4">
-      <p>You have successfully reset your account's password!</p>
+      <p>You have successfully reset your account&apos;s password!</p>
 
       <Link href="/auth/login" className="underline text-sm mt-2">
         Return to Login

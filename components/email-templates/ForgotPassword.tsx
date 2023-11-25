@@ -6,7 +6,9 @@ export default function ForgotPassword({ link }: { link: string }) {
       <p>Follow the link to be able to set a new password:</p>
       <a href={link}>{link}</a>
 
-      <p>If you haven't requested to reset your password, ignore this email.</p>
+      <p>
+        If you haven&apos;t requested to reset your password, ignore this email.
+      </p>
     </main>
   );
 }
