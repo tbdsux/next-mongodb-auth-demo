@@ -37,6 +37,8 @@ async function sendVerificationEmail(prevState: any) {
     return { fromAction: true, success: false, message: validateToken.message };
   }
 
+  await dbConnect();
+
   // Remove previously generated tokens
   await Tokens.deleteMany({
     purpose: "confirm-account",
@@ -47,8 +49,6 @@ async function sendVerificationEmail(prevState: any) {
   const tokenString = nanoid();
   const confirmJwtToken = generateJWTToken(tokenString);
   const base64Token = toBase64(confirmJwtToken);
-
-  await dbConnect();
 
   // save the token first
   await Tokens.create({

@@ -7,9 +7,6 @@ export function middleware(request: NextRequest) {
   const urlPathname = request.nextUrl.pathname;
   const defaultResponse = NextResponse.next();
 
-  // TODO: verify the token in here
-  // if failed to verify, redirect to login
-
   if (!authToken) {
     if (urlPathname.startsWith("/dashboard")) {
       return NextResponse.redirect(new URL("/auth/login", request.url));
