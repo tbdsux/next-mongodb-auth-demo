@@ -16,7 +16,6 @@ const getUser = cache(async () => {
   }
 
   const user = await User.findById(validateToken.data.id).exec();
-  console.log(user.email);
   return {
     user: {
       fullName: user.fullName,

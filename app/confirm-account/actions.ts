@@ -27,11 +27,10 @@ async function confirmAccountWithToken(token: string) {
   await User.updateOne({ _id: tokUserId }, { verified: true });
 
   // // delete all other tokens with userid and same purpose
-  const docs = await Tokens.deleteMany({
+  await Tokens.deleteMany({
     purpose: "confirm-account",
     userId: tokUserId,
   });
-  console.log(docs);
 
   return { success: true };
 }

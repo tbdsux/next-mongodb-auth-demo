@@ -56,11 +56,19 @@ export default function LoginForm() {
           required
         />
       </div>
-      <div className="flex items-center mt-3">
-        <LoginButton />
-        <Link href="/auth/register" className="ml-4 text-sm">
-          Create Account
-        </Link>
+      <div className="mt-3">
+        <div className="flex items-center">
+          <LoginButton />
+          <Link href="/auth/register" className="ml-4 text-sm">
+            Create Account
+          </Link>
+        </div>
+
+        <p className="mt-4">
+          <Link href="/auth/forgot-password" className="text-sm underline">
+            Forgot Password?
+          </Link>
+        </p>
       </div>
     </form>
   );
