@@ -2,16 +2,6 @@
 
 This is demo to manually implement a simple user authentication system
 
-## Tech Stack
-
-- Next.js (using App Router)
-- MongoDB with Mongoose
-- bcryptjs
-- zod
-- ReSend
-- nanoid
-- Tailwind (for simple styling)
-
 ## Features
 
 - [x] User login
@@ -22,6 +12,35 @@ This is demo to manually implement a simple user authentication system
 - [ ] Refresh-Token model
 - [ ] View active sessions
 - [ ] ... others
+
+## Development
+
+### Environment Setup
+
+```sh
+MONGODB_URI=
+SECRET_KEY=
+
+RESEND_API_KEY=
+RESEND_DOMAIN=
+
+# define this only on local development
+VERCEL_URL=
+```
+
+### Tech Stack
+
+- Next.js (using App Router)
+- MongoDB with Mongoose
+- bcryptjs
+- zod
+- ReSend
+- nanoid
+- Tailwind (for simple styling)
+
+## Production
+
+It's still not working on production, there are some problems and errors
 
 ---
 
