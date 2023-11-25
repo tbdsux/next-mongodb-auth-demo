@@ -10,14 +10,18 @@ This is demo to manually implement a simple user authentication system
 - zod
 - ReSend
 - nanoid
+- Tailwind (for simple styling)
 
 ## Features
 
 - [x] User login
 - [x] Create a new account
 - [x] Verify user email
-- [ ] Forgot password implementation
+- [x] Forgot password implementation
 - [ ] Login with code (through email)
+- [ ] Refresh-Token model
+- [ ] View active sessions
+- [ ] ... others
 
 ---
 
