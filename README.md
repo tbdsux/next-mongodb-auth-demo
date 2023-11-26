@@ -38,9 +38,9 @@ VERCEL_URL=
 - nanoid
 - Tailwind (for simple styling)
 
-## Production
+## Demo
 
-It's still not working on production, there are some problems and errors
+https://next-mongodb-auth-demo.vercel.app/
 
 ---
 
