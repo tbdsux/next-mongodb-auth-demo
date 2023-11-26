@@ -1,4 +1,5 @@
 import { getUser } from "@/services/getUser";
+import ClientComponent from "./ClientComponent";
 import UnverifiedUser from "./UnverifiedUser";
 import { logoutAccount } from "./actions";
 
@@ -14,6 +15,8 @@ export default async function DashboardPage() {
       <pre>
         <code>{JSON.stringify(user, null, 4)}</code>
       </pre>
+
+      <ClientComponent />
 
       {!user?.verified ? <UnverifiedUser /> : <></>}
 
