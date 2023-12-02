@@ -4,8 +4,14 @@
 import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "./utils/env";
 
-function generateJWTToken(authToken: string) {
-  return jwt.sign({ token: authToken }, SECRET_KEY, { expiresIn: "30m" });
+interface GenerateTokenProps {
+  expiresIn: string;
+}
+
+function generateJWTToken(authToken: string, options?: GenerateTokenProps) {
+  return jwt.sign({ token: authToken }, SECRET_KEY, {
+    expiresIn: options?.expiresIn ?? "30m",
+  });
 }
 
 function verifyJWTToken(token: string) {
