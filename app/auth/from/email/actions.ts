@@ -1,16 +1,13 @@
 "use server";
 
-import { DEFAULT_COOKIE_NAME } from "@/lib/cookies";
 import dbConnect from "@/lib/dbConnect";
 import { generateToken } from "@/lib/jwt";
 import { fromBase64, verifyJWTToken } from "@/lib/tokens";
 import Tokens from "@/models/Tokens";
 import User from "@/models/User";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 async function verifyAndLoginToken(token: string) {
-  console.log(token);
   if (token == "" || !token) {
     return redirect("/auth/login");
   }
@@ -45,9 +42,8 @@ async function verifyAndLoginToken(token: string) {
 
   // Generate auth token for the app
   const userToken = generateToken({ id: user._id, email: user.email });
-  cookies().set(DEFAULT_COOKIE_NAME, userToken);
 
-  redirect("/dashboard");
+  redirect(`/auth/email?token=${userToken}`);
 }
 
 export { verifyAndLoginToken };

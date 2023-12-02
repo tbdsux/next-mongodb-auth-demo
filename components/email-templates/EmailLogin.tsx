@@ -7,7 +7,7 @@ export default function EmailLogin({
 }) {
   return (
     <main>
-      <h3>Welcome ${name}</h3>
+      <h3>Welcome {name}</h3>
       <p>
         Please click the link below to login to the website, this link will
         expire in 5 minutes:
