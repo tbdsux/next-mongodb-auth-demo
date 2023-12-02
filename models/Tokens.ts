@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export interface Tokens extends mongoose.Document {
   token: string;
-  purpose: string; // forgot-password | confirm-account
+  purpose: string; // forgot-password | confirm-account | nopass-auth
   userId: string;
 }
 

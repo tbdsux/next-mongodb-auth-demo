@@ -8,7 +8,7 @@ This is demo to manually implement a simple user authentication system
 - [x] Create a new account
 - [x] Verify user email
 - [x] Forgot password implementation
-- [ ] Login with code (through email)
+- [x] Login with Email / Passwordless Authentication -> only for existing users
 - [ ] Refresh-Token model
 - [ ] View active sessions
 - [ ] ... others

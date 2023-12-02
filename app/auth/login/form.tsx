@@ -70,6 +70,17 @@ export default function LoginForm() {
           </Link>
         </p>
       </div>
+
+      <hr className="my-3" />
+
+      <div className="text-center flex flex-col">
+        <Link
+          href="/auth/login/email"
+          className="text-sm py-2 px-4 rounded-lg bg-gray-500 hover:bg-gray-600 text-white duration-300"
+        >
+          Login With Email
+        </Link>
+      </div>
     </form>
   );
 }
